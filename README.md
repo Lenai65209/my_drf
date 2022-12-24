@@ -1,4 +1,4 @@
-# My_dr
+# My_drf
 
 Учебный проект.
 
@@ -9,6 +9,7 @@
 - Python ==3.10.8
   - Django == 4.1.4
 - VSCode
+- Node.js == 18.12.1
 - SQLite 3
 
 ## Лицензия
