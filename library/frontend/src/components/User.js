@@ -5,10 +5,13 @@ const UserItem = ({user}) => {
     return (
         <tr>
             <td>
-                {user.id}
+                {user.username}
             </td>
             <td>
-                {user.username}
+                {user.first_name}
+            </td>
+            <td>
+                {user.last_name}
             </td>
             <td>
                 {user.email}
@@ -22,10 +25,13 @@ const UserList = ({users}) => {
     return (
         <table>
             <th>
-                id
+                username
             </th>
             <th>
-                username
+                First name
+            </th>
+            <th>
+                Last Name
             </th>
             <th>
                 email
