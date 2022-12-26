@@ -2,20 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AuthorList from './components/Author.js';
-import UserList from './components/User.js';
 import Navibar from './components/Navibar.js';
 import Footer from './components/Footer.js';
 
-// import Home from './Home.js';
-import { Users } from './Users.js';
+import Home from './Home.js';
+import Users from './Users.js';
 import { About } from './About.js';
 
 import {
     BrowserRouter as Router,
     Route,
-    Routes,
-    Linc
+    Routes
 } from "react-router-dom";
 
 class App extends React.Component {
@@ -53,20 +50,17 @@ class App extends React.Component {
 
     render() {
         return (
-
-            <div>
-                <Router>
+            <Router>
+                <div className='app-wrapper'>
                     <Navibar />
                     <Routes>
-                        <Route exact path='/' component={App} />
-                        <Route exact strict path='/users' component={Users} />
-                        <Route exact strict path='/about' component={About} />
+                        <Route exact path="/" element={<Home />} />
+                        <Route exact strict path='/users' element={<Users />} />
+                        <Route exact strict path='/about' element={<About />} />
                     </Routes>
-                    <UserList users={this.state.users} />
-                    <AuthorList authors={this.state.authors} />
-                </Router>
-                <Footer />
-            </div>
+                    <Footer />
+                </div>
+            </Router>
         )
     }
 }

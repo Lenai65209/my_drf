@@ -7,11 +7,11 @@ function Navibar() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Users</Nav.Link>
-            <Nav.Link href="#pricing">About</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="Users">Users</Nav.Link>
+            <Nav.Link href="About">About</Nav.Link>
           </Nav>
           <Nav>
             <Button variant='primary' className='margin-right'>Log In</Button>
