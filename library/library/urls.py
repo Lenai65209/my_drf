@@ -19,13 +19,18 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from app.views import AuthorModelViewSet
+from app.views import BiographyModelViewSet
+from app.views import AuthorModelViewSet, BookModelViewSet
 from users.views import UserModelViewSet
+from todo.views import ProjectModelViewSet, TodoModelViewSet
 
 router = DefaultRouter()
 router.register("authors", AuthorModelViewSet)
+router.register("books", BookModelViewSet)
+router.register("biographies", BiographyModelViewSet)
 router.register("users", UserModelViewSet)
-
+router.register("project", ProjectModelViewSet)
+router.register("todo", TodoModelViewSet)
 
 
 urlpatterns = [
