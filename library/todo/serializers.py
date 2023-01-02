@@ -8,8 +8,9 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
         model = Project
         fields = '__all__'
 
+
 class TodoModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Todo
         # fields = '__all__'
-        fields = ['project', 'text', 'users']
+        fields = ['project', 'text', 'users', 'active']

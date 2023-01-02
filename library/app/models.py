@@ -27,6 +27,6 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
 
 
-# class Article(models.Model):
-#     name = models.CharField(max_length=32)
-#     author = models.ForeignKey(Author, models.PROTECT)
+class Article(models.Model):
+    name = models.CharField(max_length=32)
+    author = models.ForeignKey(Author, models.PROTECT)
