@@ -24,8 +24,8 @@ class Todo(models.Model):
     # Не отражаются в панели администратора.
     # created = models.DateTimeField(auto_now_add=True, verbose_name="Created", editable=False)
     # updated = models.DateTimeField(auto_now=True, verbose_name="Edited", editable=False)
-    created = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(default=timezone.now)
+    created = models.DateField(default=timezone.now)
+    updated = models.DateField(default=timezone.now)
     users = models.ForeignKey(CustomUser, models.PROTECT)
     active = models.BooleanField(default=True)
 

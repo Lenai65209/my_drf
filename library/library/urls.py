@@ -13,25 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import re_path as url
 from allauth.account.views import confirm_email
 from django.contrib import admin
 from django.urls import path, include
+from django.urls import re_path as url
 from rest_framework.routers import DefaultRouter
 
-from app.views import BiographyModelViewSet
 from app.views import AuthorModelViewSet, BookModelViewSet
-from users.views import UserModelViewSet
+from app.views import BiographyModelViewSet, ArticleModelViewSet, \
+    ArticleCustomViewSet, BookDjangoFilterViewSet, ArticleDjangoFilterViewSet
 from todo.views import ProjectModelViewSet, TodoModelViewSet
+# from users.views import UserModelViewSet
+from users.views import UserCustomViewSet
 
 router = DefaultRouter()
 router.register("authors", AuthorModelViewSet)
 router.register("books", BookModelViewSet)
+router.register("books_filter_pagination", BookDjangoFilterViewSet)
 router.register("biographies", BiographyModelViewSet)
-router.register("users", UserModelViewSet)
-router.register("project", ProjectModelViewSet)
-router.register("todo", TodoModelViewSet)
-
+router.register("article_model", ArticleModelViewSet)
+router.register("article_custom", ArticleCustomViewSet)
+router.register("article_filter_pagination", ArticleDjangoFilterViewSet)
+# router.register("users", UserModelViewSet)
+router.register("users_custom", UserCustomViewSet)
+router.register("project_filter_pagination", ProjectModelViewSet)
+router.register("todo_filter_pagination", TodoModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,7 +46,6 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
-    url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
+    url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$',
+        confirm_email, name='account_confirm_email'),
 ]
-
-
