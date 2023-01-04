@@ -7,14 +7,11 @@ import ProjectList from './components/Project.js';
 import TodoList from './components/Todo.js';
 
 import {
-    Route,
-    Routes,
-    Link,
-    Navigate
+    Link
 } from "react-router-dom";
 
 
-class Home extends React.Component {
+class Todos extends React.Component {
 
     constructor(props) {
         super(props)
@@ -25,7 +22,7 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount() {
+        componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/users')
             .then(response => {
                 const users = response.data
@@ -35,6 +32,7 @@ class Home extends React.Component {
                     }
                 )
             }).catch(error => console.log(error))
+
 
         axios.get('http://127.0.0.1:8000/api/projects')
             .then(response => {
@@ -60,15 +58,23 @@ class Home extends React.Component {
     render() {
         return (
             <div className='app-wrapper'>
-                <h1>Page Home</h1>
-                <h3>List of users</h3>
-                <UserList users={this.state.users} />
-                <h3>Projects</h3>
-                <ProjectList projects={this.state.projects}/>
-                <h3>List of todos</h3>
+                <h1>Page Todos</h1>
                 <TodoList todos={this.state.todos} />
+                <nav className='app-wrapper-nav'>
+                    <li>
+                        <Link to='/users'>Users</Link>
+                    </li>
+                </nav>
+                <UserList users={this.state.users} />
+                <nav className='app-wrapper-nav'>
+                    <li>
+                        <Link to='/projects'>Projects</Link>
+                    </li>
+                </nav>
+               <ProjectList projects={this.state.projects} />
             </div>
         );
     }
 }
-export default Home;
+
+export default Todos;

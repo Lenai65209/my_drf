@@ -17,7 +17,7 @@ class ProjectModelViewSet(ModelViewSet):
     # Добавили фильтрацию
     filterset_class = ProjectFilter
     # Добавили пагинацию
-    pagination_class = ProjectLimitOffsetPagination
+    # pagination_class = ProjectLimitOffsetPagination
 
 
 class TodoLimitOffsetPagination(LimitOffsetPagination):
@@ -30,6 +30,6 @@ class TodoModelViewSet(ModelViewSet):
     # Добавили фильтрацию по проекту
     # filterset_fields = ['project'] # перенесено в filters.py
     # Добавили пагинацию
-    pagination_class = TodoLimitOffsetPagination
+    # pagination_class = TodoLimitOffsetPagination
     # Фильтрация по датам
     filterset_class = TodoFilter
