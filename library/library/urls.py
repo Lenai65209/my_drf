@@ -35,9 +35,9 @@ router.register("article_model", ArticleModelViewSet)
 router.register("article_custom", ArticleCustomViewSet)
 router.register("article_filter_pagination", ArticleDjangoFilterViewSet)
 # router.register("users", UserModelViewSet)
-router.register("users_custom", UserCustomViewSet)
-router.register("project_filter_pagination", ProjectModelViewSet)
-router.register("todo_filter_pagination", TodoModelViewSet)
+router.register("users", UserCustomViewSet)
+router.register("projects", ProjectModelViewSet)
+router.register("todos", TodoModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

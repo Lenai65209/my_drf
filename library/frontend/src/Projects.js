@@ -5,16 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserList from './components/User.js';
 import ProjectList from './components/Project.js';
 import TodoList from './components/Todo.js';
+import ProjectsFilter from './components/ProjectsFilter';
 
 import {
-    Route,
-    Routes,
     Link,
-    Navigate
+    Routes,
+    Route,
 } from "react-router-dom";
 
 
-class Home extends React.Component {
+class Projects extends React.Component {
 
     constructor(props) {
         super(props)
@@ -25,7 +25,7 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount() {
+        componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/users')
             .then(response => {
                 const users = response.data
@@ -35,6 +35,7 @@ class Home extends React.Component {
                     }
                 )
             }).catch(error => console.log(error))
+
 
         axios.get('http://127.0.0.1:8000/api/projects')
             .then(response => {
@@ -60,15 +61,32 @@ class Home extends React.Component {
     render() {
         return (
             <div className='app-wrapper'>
-                <h1>Page Home</h1>
-                <h3>List of users</h3>
+                <h1>Page Projects</h1>
+
+                <nav className='app-wrapper-nav'>
+                    <li>
+                        <Link to='/users'>Users</Link>
+                    </li>
+                </nav>
                 <UserList users={this.state.users} />
-                <h3>Projects</h3>
-                <ProjectList projects={this.state.projects}/>
-                <h3>List of todos</h3>
+                <nav className='app-wrapper-nav'>
+                   <li>
+                       <Link to='/todos'>Todos</Link>
+                   </li>
+                </nav>
                 <TodoList todos={this.state.todos} />
+                <nav className='app-wrapper-nav'>
+                    <li>
+                        <Link to='/projects'>Projects</Link>
+                    </li>
+                </nav>
+                <Routes exact path='/projects/*'>
+                    <Route index element={<ProjectList projects={this.state.projects} />}/>
+                    <Route exact path=':projectId' element={<ProjectsFilter projects={this.state.projects}/>}/>
+                </Routes>
+
             </div>
         );
     }
 }
-export default Home;
+export default Projects;

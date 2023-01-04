@@ -9,9 +9,11 @@ function Navibar() {
         <Container>
           <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="Users">Users</Nav.Link>
-            <Nav.Link href="About">About</Nav.Link>
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/users">Users</Nav.Link>
+            <Nav.Link href="/projects">Project</Nav.Link>
+            <Nav.Link href="/todos">Todo</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
           </Nav>
           <Nav>
             <Button variant='primary' className='margin-right'>Log In</Button>
