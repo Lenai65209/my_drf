@@ -6,6 +6,7 @@ from .models import Project, Todo
 class ProjectModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Project
+        # id добавлено для удобства перехода на редактирование,
         fields = ['id', 'title', 'repo', 'users']
 
 
@@ -13,4 +14,5 @@ class TodoModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Todo
         # fields = '__all__'
-        fields = ['project', 'text', 'users', 'active']
+        # id добавлено для удобства перехода на редактирование,
+        fields = ['id', 'project', 'text', 'users', 'active']
