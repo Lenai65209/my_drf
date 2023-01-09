@@ -1,12 +1,19 @@
 # Create your views here.
 from rest_framework import mixins, viewsets
 from rest_framework.pagination import LimitOffsetPagination
+# from rest_framework.permissions import AllowAny, BasePermission
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from .filters import ArticleFilter, BookFilter
 from .models import Author, Book, Biography, Article
 from .serializers import AuthorModelSerializer, BookModelSerializer
 from .serializers import BiographyModelSerializer, ArticleModelSerializer
+
+
+# class SuperUserOnly(BasePermission):
+#
+#     def has_permission(self, request, view):
+#         return request.user.is_superuser
 
 
 class AuthorModelViewSet(viewsets.ModelViewSet):
@@ -23,11 +30,13 @@ class BookModelViewSet(viewsets.ModelViewSet):
 class BiographyModelViewSet(viewsets.ModelViewSet):
     queryset = Biography.objects.all()
     serializer_class = BiographyModelSerializer
+    # permission_classes = [AllowAny]
 
 
 class ArticleModelViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleModelSerializer
+    # permission_classes = [SuperUserOnly]
 
 
 class ArticleCustomViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,
