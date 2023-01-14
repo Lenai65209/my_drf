@@ -10,15 +10,15 @@ class AuthorModelSerializer(HyperlinkedModelSerializer):
 
 
 class BookModelSerializer(HyperlinkedModelSerializer):
-    # authors = AuthorModelSerializer(many=True)
+    # authors = AuthorModelSerializer(many=True) # ломает отражение на frontend
 
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['id', 'name', 'authors']
 
 
 class BiographyModelSerializer(HyperlinkedModelSerializer):
-    author = AuthorModelSerializer()
+    # author = AuthorModelSerializer() # ломает отражение на frontend
 
     class Meta:
         model = Biography
@@ -26,8 +26,8 @@ class BiographyModelSerializer(HyperlinkedModelSerializer):
 
 
 class ArticleModelSerializer(HyperlinkedModelSerializer):
-    author = AuthorModelSerializer()
+    # author = AuthorModelSerializer() # ломает отражение на frontend
 
     class Meta:
         model = Article
-        fields = '__all__'
+        fields = ['id', 'name', 'author']

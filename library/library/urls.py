@@ -20,21 +20,22 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, \
     TokenRefreshView, TokenVerifyView
 
-from app.views import AuthorModelViewSet, BookModelViewSet
-from app.views import BiographyModelViewSet, ArticleModelViewSet, \
-    ArticleCustomViewSet, BookDjangoFilterViewSet, ArticleDjangoFilterViewSet
+from app.views import AuthorModelViewSet\
+    # , BookModelViewSet, ArticleModelViewSet, ArticleCustomViewSet,
+from app.views import BiographyModelViewSet,  \
+     BookDjangoFilterViewSet, ArticleDjangoFilterViewSet
 from todo.views import ProjectModelViewSet, TodoModelViewSet
 # from users.views import UserModelViewSet
 from users.views import UserCustomViewSet
 
 router = DefaultRouter()
 router.register("authors", AuthorModelViewSet)
-router.register("books", BookModelViewSet)
-router.register("books_filter_pagination", BookDjangoFilterViewSet)
+# router.register("books", BookModelViewSet)
+router.register("books", BookDjangoFilterViewSet)
 router.register("biographies", BiographyModelViewSet)
-router.register("article_model", ArticleModelViewSet)
-router.register("article_custom", ArticleCustomViewSet)
-router.register("article_filter_pagination", ArticleDjangoFilterViewSet)
+# router.register("article_model", ArticleModelViewSet)
+# router.register("article_custom", ArticleCustomViewSet)
+router.register("articles", ArticleDjangoFilterViewSet)
 # router.register("users", UserModelViewSet)
 router.register("users", UserCustomViewSet)
 router.register("projects", ProjectModelViewSet)
