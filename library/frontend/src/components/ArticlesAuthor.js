@@ -15,7 +15,7 @@ const ArticleItem = ({article}) => {
     )
 }
 
-const ArticleAuthor = ({articles}) => {
+const ArticlesAuthor = ({articles}) => {
     let {authorId} = useParams()
     console.log(authorId)
     console.log('test')
@@ -38,4 +38,4 @@ const ArticleAuthor = ({articles}) => {
     )
 }
 
-export default ArticleAuthor;
+export default ArticlesAuthor;

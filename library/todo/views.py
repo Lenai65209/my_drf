@@ -1,5 +1,6 @@
 # Create your views here.
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from .filters import ProjectFilter, TodoFilter
@@ -33,3 +34,4 @@ class TodoModelViewSet(ModelViewSet):
     # pagination_class = TodoLimitOffsetPagination
     # Фильтрация по датам
     filterset_class = TodoFilter
+    permission_classes = [IsAuthenticated] # для проверки

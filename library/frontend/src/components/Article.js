@@ -5,6 +5,9 @@ const ArticleItem = ({article}) => {
     return (
         <tr>
             <td>
+                {article.id}
+            </td>
+            <td>
                 {article.name}
             </td>
             <td>
@@ -17,6 +20,9 @@ const ArticleItem = ({article}) => {
 const ArticleList = ({articles}) => {
     return (
         <table>
+            <th>
+                ID
+            </th>
             <th>
                 Name
             </th>

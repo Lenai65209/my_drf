@@ -1,5 +1,6 @@
 # Create your views here.
 from rest_framework import mixins, viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 from .models import CustomUser

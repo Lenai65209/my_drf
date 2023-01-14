@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import Cookies from 'universal-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserList from './components/User.js';
 import ProjectList from './components/Project.js';
@@ -19,11 +20,56 @@ class Users extends React.Component {
             'users': [],
             'projects': [],
             'todos': [],
+            'token': '',
         }
     }
 
-        componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/users')
+    logout(){
+        this.set_token('')
+        /*this.setState({'books':[]})*/
+    }
+
+    is_auth(){
+        /*return this.state.token != ''*/
+        return !!this.state.token
+    }
+
+    set_token(token){
+        /*localStorage.setItem('token',token)*/
+        console.log(token)
+        const cookies = new Cookies()
+        cookies.set('token',token)
+        this.setState({'token':token}, () => this.load_data())
+
+    }
+
+    get_token_storage(){
+        const cookies = new Cookies()
+        const token = cookies.get('token')
+        this.setState({'token': token}, () => this.load_data())
+    }
+
+    get_token(username,password){
+        /*console.log(username,password)*/
+        const data = {username:username,password:password}
+        axios.post('http://127.0.0.1:8000/api-token-auth/',data).then(response => {
+            this.set_token(response.data['token'])
+        }).catch(error => alert('Неверный логин или пароль.'))
+    }
+
+    get_headers(){
+        let headers = {
+            'Content-Type': 'application/json'
+        }
+        if (this.is_auth()){
+            headers['Authorization'] = 'Token ' + this.state.token
+        }
+        return headers
+        }
+
+        load_data() {
+        const headers = this.get_headers()
+            axios.get('http://127.0.0.1:8000/api/users', {headers})
             .then(response => {
                 const users = response.data
                 this.setState(
@@ -34,7 +80,7 @@ class Users extends React.Component {
             }).catch(error => console.log(error))
 
 
-        axios.get('http://127.0.0.1:8000/api/projects')
+            axios.get('http://127.0.0.1:8000/api/projects', {headers})
             .then(response => {
                 const projects = response.data
                 this.setState(
@@ -44,7 +90,7 @@ class Users extends React.Component {
                 )
             }).catch(error => console.log(error))
 
-        axios.get('http://127.0.0.1:8000/api/todos')
+            axios.get('http://127.0.0.1:8000/api/todos', {headers})
             .then(response => {
                 const todos = response.data
                 this.setState(
@@ -53,6 +99,10 @@ class Users extends React.Component {
                     }
                 )
             }).catch(error => console.log(error))
+    }
+
+    componentDidMount() {
+        this.get_token_storage()
     }
 
     render() {

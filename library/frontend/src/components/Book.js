@@ -5,6 +5,9 @@ const BookItem = ({book}) => {
     return (
         <tr>
             <td>
+                {book.id}
+            </td>
+            <td>
                 {book.name}
             </td>
             <td>
@@ -18,6 +21,9 @@ const BookItem = ({book}) => {
 const BookList = ({books}) => {
     return (
         <table>
+            <th>
+                ID
+            </th>
             <th>
                 Name
             </th>
