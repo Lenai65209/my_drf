@@ -34,4 +34,4 @@ class TodoModelViewSet(ModelViewSet):
     # pagination_class = TodoLimitOffsetPagination
     # Фильтрация по датам
     filterset_class = TodoFilter
-    permission_classes = [IsAuthenticated] # для проверки
+    # permission_classes = [IsAuthenticated] # для проверки

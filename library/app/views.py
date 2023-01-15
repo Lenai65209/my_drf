@@ -1,15 +1,15 @@
 # Create your views here.
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 # from rest_framework.permissions import AllowAny, BasePermission
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, \
-    IsAuthenticated
-from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .filters import ArticleFilter, BookFilter
 from .models import Author, Book, Biography, Article
-from .serializers import AuthorModelSerializer, BookModelSerializer
+from .serializers import AuthorModelSerializer, BookModelSerializer, \
+    ArticleSerializer
 from .serializers import BiographyModelSerializer, ArticleModelSerializer
+from .serializers import BookSerializer, BiographySerializer
 
 
 # class SuperUserOnly(BasePermission):
@@ -21,6 +21,8 @@ from .serializers import BiographyModelSerializer, ArticleModelSerializer
 class AuthorModelViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
+    # permission_classes = [AllowAny]
+    # permission_classes = [IsAuthenticated]  # Для пповерки
 
 
 # class BookModelViewSet(viewsets.ModelViewSet):
@@ -31,9 +33,14 @@ class AuthorModelViewSet(viewsets.ModelViewSet):
 
 class BiographyModelViewSet(viewsets.ModelViewSet):
     queryset = Biography.objects.all()
-    serializer_class = BiographyModelSerializer
+    serializer_class = BiographySerializer
     # permission_classes = [AllowAny]
-    permission_classes = [IsAuthenticated] # Для пповерки
+    # permission_classes = [IsAuthenticated]  # Для пповерки
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return BiographySerializer
+        return BiographyModelSerializer
 
 
 # class ArticleModelViewSet(viewsets.ModelViewSet):
@@ -54,10 +61,16 @@ class ArticleLimitOffsetPagination(LimitOffsetPagination):
 
 class ArticleDjangoFilterViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
-    serializer_class = ArticleModelSerializer
+    serializer_class = ArticleSerializer
     filterset_fields = ['name', 'user']
-    filterset_class = ArticleFilter
+    # filterset_class = ArticleFilter
     # pagination_class = ArticleLimitOffsetPagination
+    # permission_classes = [IsAuthenticated]  # Для пповерки
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ArticleSerializer
+        return ArticleModelSerializer
 
 
 class BookLimitOffsetPagination(LimitOffsetPagination):
@@ -66,7 +79,12 @@ class BookLimitOffsetPagination(LimitOffsetPagination):
 
 class BookDjangoFilterViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
-    serializer_class = BookModelSerializer
+    serializer_class = BookSerializer
     filterset_fields = ['name', 'user', 'authors']
     filterset_class = BookFilter
     # pagination_class = BookLimitOffsetPagination
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return BookSerializer
+        return BookModelSerializer
