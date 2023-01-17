@@ -41,7 +41,7 @@ class CustomUser(AbstractUser):  # AbstractBaseUser
 
     date_of_birth = models.DateField(blank=True, null=True)
     password = models.CharField(max_length=100, default=1,
-                                help_text=_("When saving , it is hashed."))
+                                help_text=_("When saving , it is hashed. Default=1"))
     objects = CustomUserManager()
 
     def __str__(self):
