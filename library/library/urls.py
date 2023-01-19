@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
 from rest_framework import permissions
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
@@ -22,7 +24,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, \
     TokenRefreshView, TokenVerifyView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
 
 from app.views import AuthorModelViewSet\
     # , BookModelViewSet, ArticleModelViewSet, ArticleCustomViewSet,
@@ -76,4 +78,7 @@ urlpatterns = [
          name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
          name='schema-redoc'),
+    #  М.б. декоратором, или вызван явно, и передать в него View (csrf токен не проверяется).
+    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))), #  может быть декоратором.
+
 ]
