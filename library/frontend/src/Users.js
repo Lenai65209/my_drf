@@ -24,6 +24,26 @@ class Users extends React.Component {
         }
     }
 
+    deleteProject(id) {
+        console.log(id)
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => {
+                this.setState({'projects': []})})
+        }
+
+    deleteTodo(id) {
+        console.log(id)
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/todos/${id}`, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => {
+                this.setState({'todos': []})})
+        }
+
     logout(){
         this.set_token('')
         /*this.setState({'books':[]})*/
@@ -115,13 +135,13 @@ class Users extends React.Component {
                         <Link to='/projects'>Projects</Link>
                     </li>
                 </nav>
-               <ProjectList projects={this.state.projects} />
+               <ProjectList projects={this.state.projects} deleteProject={(id)=>this.deleteProject(id)}/>
                <nav className='app-wrapper-nav'>
                    <li>
                        <Link to='/todos'>Todos</Link>
                    </li>
                </nav>
-               <TodoList todos={this.state.todos} />
+               <TodoList todos={this.state.todos} deleteTodo={(id)=>this.deleteTodo(id)}/>
             </div>
         );
     }

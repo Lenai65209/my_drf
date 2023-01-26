@@ -1,9 +1,12 @@
 import React from 'react'
 
 
-const TodoItem = ({todo}) => {
+const TodoItem = ({todo, deleteTodo}) => {
     return (
         <tr>
+            <td>
+                {todo.id}
+            </td>
             <td>
                 {todo.project}
             </td>
@@ -13,14 +16,23 @@ const TodoItem = ({todo}) => {
             <td>
                 {todo.users}
             </td>
+            <td>
+                {todo.active ? "active" : "deleted"}
+            </td>
+            <td>
+                <td><button onClick={()=>deleteTodo(todo.id)} type='button'>Delete</button></td>
+            </td>
         </tr>
     )
 }
 
 
-const TodoList = ({todos}) => {
+const TodoList = ({todos, deleteTodo}) => {
     return (
         <table>
+            <th>
+                ID
+            </th>
             <th>
                 Project
             </th>
@@ -30,7 +42,13 @@ const TodoList = ({todos}) => {
             <th>
                 Users
             </th>
-                {todos.map((todo_) => <TodoItem todo={todo_} />)}
+            <th>
+                Active
+            </th>
+            <th>
+                'Only for authorized users'
+            </th>
+                {todos.map((todo_) => <TodoItem todo={todo_} deleteTodo={deleteTodo} />)}
         </table>
     )
 }
