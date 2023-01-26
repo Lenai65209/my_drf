@@ -1,6 +1,7 @@
 # Create your views here.
 from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import AllowAny
 
 from .filters import BookFilter
 from .models import Author, Book, Biography, Article
@@ -51,8 +52,8 @@ class BiographyModelViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.version == '2.0' and self.request.method in ['GET']:
             return BiographyModelSerializerV2
-        if self.request.method in ['GET']:
-            return BiographySerializer
+        # if self.request.method in ['GET']:  # ломает отражение на frontend
+        #     return BiographySerializer
         return BiographyModelSerializer
 
 
@@ -85,8 +86,8 @@ class ArticleDjangoFilterViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.version == '2.0' and self.request.method in ['GET']:
             return ArticleModelSerializerV2
-        if self.request.method in ['GET']:
-            return ArticleSerializer
+        # if self.request.method in ['GET']:  # ломает отражение на frontend
+        #     return ArticleSerializer
         return ArticleModelSerializer
 
 
@@ -99,6 +100,7 @@ class BookDjangoFilterViewSet(viewsets.ModelViewSet):
     # serializer_class = BookSerializer
     filterset_fields = ['name', 'user', 'authors']
     filterset_class = BookFilter
+    # permission_classes = [AllowAny]
 
     # pagination_class = BookLimitOffsetPagination
 
@@ -106,6 +108,7 @@ class BookDjangoFilterViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.version == '2.0' and self.request.method in ['GET']:
             return BookModelSerializerV2
-        if self.request.method in ['GET']:
-            return BookSerializer
-        return BookModelSerializer
+        # if self.request.method in ['GET']:  # ломает отражение на frontend
+        #     return BookSerializer
+        # return BookModelSerializer
+        return BookSerializer

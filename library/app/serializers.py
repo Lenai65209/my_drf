@@ -1,10 +1,14 @@
 from rest_framework.serializers import HyperlinkedModelSerializer, \
     ModelSerializer
 
+# HyperlinkedModelSerializer ломает post и put на frontend
+# нужен ModelSerializer
+
+
 from .models import Author, Book, Biography, Article
 
 
-class AuthorModelSerializer(HyperlinkedModelSerializer):
+class AuthorModelSerializer(ModelSerializer):
     class Meta:
         model = Author
         fields = ['id', 'first_name', 'last_name', 'birthday_year']
@@ -25,7 +29,7 @@ class BookModelSerializer(HyperlinkedModelSerializer):
 
 
 class BookModelSerializerV2(ModelSerializer):
-    authors = AuthorModelSerializer(many=True) # ломает отражение на frontend
+    authors = AuthorModelSerializer(many=True)  # ломает отражение на frontend
 
     class Meta:
         model = Book
@@ -33,7 +37,7 @@ class BookModelSerializerV2(ModelSerializer):
 
 
 class BookSerializer(ModelSerializer):
-    authors = AuthorModelSerializer(many=True)
+    # authors = AuthorModelSerializer(many=True)
 
     class Meta:
         model = Book
@@ -67,7 +71,7 @@ class BiographySerializer(ModelSerializer):
 
 
 class ArticleModelSerializer(HyperlinkedModelSerializer):
-    # author = AuthorModelSerializer() # ломает отражение на frontend
+    # author = AuthorModelSerializer() #  ломает отражение на frontend
 
     class Meta:
         model = Article
@@ -75,7 +79,7 @@ class ArticleModelSerializer(HyperlinkedModelSerializer):
 
 
 class ArticleModelSerializerV2(HyperlinkedModelSerializer):
-    author = AuthorModelSerializer() # ломает отражение на frontend
+    author = AuthorModelSerializer()  #  ломает отражение на frontend
 
     class Meta:
         model = Article

@@ -24,6 +24,26 @@ class Todos extends React.Component {
         }
     }
 
+    deleteTodo(id) {
+        console.log(id)
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/todos/${id}`, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => {
+                this.setState({'todos': []})})
+        }
+
+    deleteProject(id) {
+        console.log(id)
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => {
+                this.setState({'projects': []})})
+        }
+
     logout(){
         this.set_token('')
         /*this.setState({'books':[]})*/
@@ -110,7 +130,7 @@ class Todos extends React.Component {
         return (
             <div className='app-wrapper'>
                 <h1>Page Todos</h1>
-                <TodoList todos={this.state.todos} />
+                <TodoList todos={this.state.todos} deleteTodo={(id)=>this.deleteTodo(id)}/>
                 <nav className='app-wrapper-nav'>
                     <li>
                         <Link to='/users'>Users</Link>
@@ -122,7 +142,7 @@ class Todos extends React.Component {
                         <Link to='/projects'>Projects</Link>
                     </li>
                 </nav>
-               <ProjectList projects={this.state.projects} />
+               <ProjectList projects={this.state.projects} deleteProject={(id)=>this.deleteProject(id)}/>
             </div>
         );
     }

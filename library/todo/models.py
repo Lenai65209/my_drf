@@ -38,5 +38,5 @@ class Todo(models.Model):
         return super(Todo, self).save(*args, **kwargs)
 
     def delete(self, *args):  # из формы заметки
-        self.active = False  # пповерка работы поля active.
+        self.active = False  # пpоверка работы поля active.
         self.save()

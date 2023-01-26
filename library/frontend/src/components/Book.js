@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const BookItem = ({book}) => {
+const BookItem = ({book, deleteBook}) => {
     return (
         <tr>
             <td>
@@ -13,12 +13,15 @@ const BookItem = ({book}) => {
             <td>
                 {book.authors}
             </td>
+            <td>
+                <td><button onClick={()=>deleteBook(book.id)} type='button'>Delete</button></td>
+            </td>
             </tr>
     )
 }
 
 
-const BookList = ({books}) => {
+const BookList = ({books, deleteBook}) => {
     return (
         <table>
             <th>
@@ -30,7 +33,10 @@ const BookList = ({books}) => {
             <th>
                 Authors
             </th>
-                {books.map((book_) => <BookItem book={book_} />)}
+            <th>
+                'Only for authorized users'
+            </th>
+                {books.map((book_) => <BookItem book={book_} deleteBook={deleteBook}/>)}
         </table>
     )
 }
